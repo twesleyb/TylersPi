@@ -1,0 +1,13 @@
+Python 3.5.3 (default, Sep 27 2018, 17:25:39) 
+[GCC 6.3.0 20170516] on linux
+>>> # Get the current working directory.
+>>> import os
+>>> os.getcwd()
+'/home/pi'
+>>> cd = os.getcwd()
+>>> # Set the directory
+>>> os.chdir(cd)
+
+# Turning off the Raspberry pi.
+sudo halt -p
+
