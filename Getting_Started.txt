@@ -1,0 +1,326 @@
+################################################################################
+## Installing Python on Windows 10.
+################################################################################
+
+# I followed the instructions [here](https://anthonydebarros.com/2018/06/21/setting-up-python-in-windows-10/).
+# Python 3.7 32 bit was installed here: C:\Python37-32.
+# This resulted in an error:
+  Fatal Python error: initfsencoding: unable to load the file system codec ModuleNotFoundError: 
+  No module named 'encodings' Current thread 0x000042dc (most recent call first):
+
+# It was necessary to insure that Windows can find Python in its system path.
+# To fix this, I followed these [instructions](https://stackoverflow.com/questions/42512817/fatal-python-error-on-windows-10-modulenotfounderror-no-module-named-encodings).
+
+# Pip seems to have not been installed correctly. To fix this, follow these
+# instructions: https://www.liquidweb.com/kb/install-pip-windows/. 
+# * download pip by right clicking on link and saving in downloads.
+# * change directory to download cd Downloads
+# * python get-pip.py
+# Check pip version with pip -V
+
+# To install a package type:
+pip install requests
+
+# To unistall a module type:
+pip uninstall name_of_module
+
+# To upgrade a package type:
+pip install --upgrade name_of_module
+
+# To list installed modules
+pip list
+
+################################################################################
+## Installing the Anaconda/Miniconda/Spyder IDE on Windows 10.
+################################################################################
+
+# Download [Anaconda](https://www.anaconda.com/distribution/#download-section)
+# Insure you download the Windows version (.exe file)!
+
+# You can install Anaconda if you already have Python. 
+
+###I already have Python installed. Can I install Anaconda?
+#> You do not need to uninstall other Python installations or packages before 
+#> installing Anaconda. Even if you already have a system Python, another Python 
+#> installation from a source such as the macOS Homebrew package manager and 
+#> globally installed packages from pip such as pandas and NumPy, you do not 
+#> need to uninstall, remove, or change any of them.
+
+# First download, changed path to C:\Anaconda3 and then had troubles. 
+# Anaconda prompt is found but not anaconda-navigator. 
+# Uninstall and try again. Use default location. This did not work.
+# Uninstall and try again. Changed location to C:\Anaconda3.
+# Select option to add python to PATH.  
+
+# Ugh, can't get it working. 
+
+# Unistall everything.
+# Install miniconda.
+# Launch Anaconda prompt:
+conda install -c anaconda anaconda-navigator
+# Now we have anaconda navigator. System path is still not correct as I cannot access conda or anaconda-navigator from command prompt. 
+# Install spyder3 from navigator. 
+# Upgrade spyder. In the command terminal:
+python pip install --upgrade spyder
+# Still wont work. 
+
+# unistalled anaconda-navigator, spyder
+
+# Insure that the following are installed:
+
+# Not sure whether or not I should have installed with conda or pip.
+pip install pyqt5
+pip install PySide2
+
+# in anaconda prompt:
+conda update qt pyqt
+conda update spyder
+
+ #now it works! But the only way I can get spyder running is through 
+# Anaconda prompt:
+spyder 
+# or
+spyder3
+# you cannot pin this to start or make a shortcut. clicking on the exe doesnt work. 
+
+################################################################################
+## Installying Jupyter notebook.
+################################################################################
+
+# Install:
+conda install ipython-notebook
+conda install -c anaconda jupyter
+
+# To run R code we need the Rkernel.
+[link](https://discuss.analyticsvidhya.com/t/how-to-run-r-on-jupyter-ipython-notebooks/5512/2)
+conda install -c r ipython-notebook r-irkernel
+r
+install.packes("rzmq")
+install.packages("repr")
+install.packages("IRkernel")
+install.packages("IRdisplay")
+IRkernel::installspec()
+quit()
+
+# Launch a notebook
+ipython notebook
+# or
+jupyter-notebook
+
+################################################################################
+## Installing Git on Windows 10.
+################################################################################
+
+# Installed git bash.
+# Navigate to where the git.ext
+path = "C:\Program Files\Git\bin"
+# Check that this is the correct path. In a new terminal:
+cd C:\Program Files\Git\bin
+git
+# Should work.
+# Add this path to Windows path system variables. 
+
+################################################################################
+## Setting up the Raspberry Pi.
+################################################################################
+# To set up a Raspberry Pi 3 (Model B), I followed the instructions (here)
+# [https://www.imore.com/how-get-started-using-raspberry-pi].
+
+# Brifly, I:
+# 1). Reformated a SD card with the (SD Formatter 5.01)
+[https://www.sdcard.org/downloads/formatter/index.html]. 
+
+# 2). Downloaded (NOOBS)[https://www.raspberrypi.org/downloads/noobs/]
+
+# 3). Unzipped this folder into my SD card and inserted into my Pi.
+
+# 4). Connected Pi to Duke ethernet, micro USB power, USB keyboard and mouse, 
+#     HDMI monitor, turned it on, and followed the prompts to install 
+#     NOOBS. I kept the default username and password:
+#       User: raspberry
+#       Pass: pi
+
+################################################################################
+## Connecting the Raspberry Pi's camera.
+################################################################################
+
+# Arducam 5 Megapixel camera for Raspberry Pi 3 [X00VGJ8BL]
+# http://www.arducam.com/lowcost-raspberry-pi-mini-camera-module/
+
+# This paper is a model: https://github.com/surjeets/Animal_Home_Cage
+
+# I followed the instructions here to connect the Raspberry Pi camera:
+# [https://projects.raspberrypi.org/en/projects/getting-started-with-picamera]
+
+# Configuration > Preferences > Raspberry Pi Configuration > Interfaces 
+# > enable Camera and SSH.
+
+# Make a simple script to activate camera for given amount of time:
+
+```
+from picamera import PiCamera
+from time import sleep
+
+camera = PiCamera()
+
+camera.start_preview()
+sleep(10)
+camera.stop_preview() 
+``
+
+################################################################################
+## Connecting to Pi remotely with VNC.
+################################################################################
+
+# VNC = virtual network computing. 
+
+# I followed the instructions here to set up VNC:
+  [https://lifehacker.com/how-to-control-your-raspberry-pi-from-any-computer-usin-1788592777]
+
+# Briefly, I:
+# 1). Downloaded the (Raspberry Pi Finder)[https://lifehacker.com/how-to-control-your-raspberry-pi-from-any-computer-usin-1788592777]
+# 2). Downloaded the (RealVNC tool)[https://www.realvnc.com/en/connect/download/viewer/]
+# 3). Insure VNC is enabled on Pi, and then with PC and Pi connected to Wifi
+#     run the Pi finder tool on my PC. Activate VNC with command linne: vncserver
+# 4). Connect to Pi with VNC by enter the Pi's IP address in VNC.
+
+# Once connected to the Raspberry pi with VNC you can operate the Raspberry pi
+# with or without (headless) a monitor.
+
+################################################################################
+## Setting up Git for Raspberry Pi.
+################################################################################
+
+# Basic linux commands: https://www.raspberrypi.org/documentation/linux/usage/commands.md
+
+# Working from instructions (here)[https://projects.raspberrypi.org/en/projects/getting-started-with-git]
+# Git is already installed on Pi!
+
+# Insure that a SSH key has been set up:
+# 1) I followed the instructions here: https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md
+#    saved SSH key in default location with no pashphrase.
+# 2) Add this SSH key to GitHub. Paste entire key. >Account > Settings > SSH > paste in entire key. 
+# 3) Create a repository on GitHub. I was unable to create one remotely.
+# 4) Clone this repository:
+```
+git clone git@github.com:twesleyb/newTest.git
+```
+
+```
+# Commands to check SSH key.
+$ ls ~/.shh
+$ cat ~/.ssh/id_rsa.pub
+
+# My key:
+# ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0gRz6fukK53fouCP2B5DbHUH4tr74zUQeidMIR6/OJUA9+zG67e4vAqhl/OCtlQ9SjVy7ZSSeL54J3Q0awJfW6bu+ZanTwG8G9DQJOkesZvy1Oe8pZIyd7a3P+sRCzE+gp6E+B+pNKer4CD1g/hIn5nLyl2wXZdQWz9a0m+bIFjMNwsrO1VzeBYyulQxlB3q0v8pm3nOxjhkvs4KHcFF9k+aDZu/Mjn8c2d2lN5Npz0sYBbAdc0VmqJwntQ/k2uzVVT67QyGFbxlfZ80OqvYXbljrlJDX4TzC+oI+pduItUeKzrtkLqLkTOXtCB0MhOtuA0ogYUYfTFf4IFrUJ+Yv pi@raspberrypi
+# pi@raspberrypi
+
+# Basic git commands:
+$ git add --all
+$ git status
+$ git commit -am "commit message"
+$ git push
+$ git pull
+$ 
+
+################################################################################
+## Basic Windows terminal commands.
+################################################################################
+# https://community.sophos.com/kb/en-us/13195
+# also here: https://commandwindows.com/command3.htm
+del
+dir
+cd
+attrib
+echo
+cls
+edit 
+help
+md
+
+# To create a blank file.
+echo >> newfile.txt
+
+# You can chain commands together with the & operator.
+# e.g. d: & echo >> test.txt
+
+################################################################################
+## Basic Raspberry Pi (Linux) terminal commands. 
+################################################################################
+
+# Resart
+sudo reboot
+
+# Turn off
+sudo halt
+
+# Take a test picture.
+raspistill -v -o test.jpg
+
+# Check if camera is connected:
+vcgencmd get_camera
+
+# Configuration.
+sudo raspi-config
+
+################################################################################
+## Basic Pyton
+################################################################################
+
+# Get the working directory. 
+import os
+os.getcwd()
+
+dir = 'd:'
+os.chdir(dir)
+
+os.listdir(dir)
+
+# Check the type of an object with type()
+type(dir)
+
+# Read a text file.
+file = 'test.txt'
+lines = open(file).read().split('\n')
+
+# Lists are created with []
+# Index with [:]
+# note thate indexing starts at 0.
+
+# Generate a sequence of numbers with range().
+range(0,5,1)
+
+# Coerce to list.
+list(range(0,5))
+
+# Tuples are immutable. You cannot change them.  
+# Created with ()
+
+# Check if a value is in a list. 
+x = range(1,100)
+0 in x # FALSE
+
+# an if statement. Use 4 spaces for to indicate blocks of code. 
+if var1 < var2:
+    print('yep!')
+else:
+    print('no!')
+
+# Simple for loop.
+for i in (range(5):
+    print(i)
+
+# Skeleton of function definition
+
+def <function name>(<input arguments as keyword-value pairs>):
+    # Code of function
+    ...
+
+    # Optional output of function
+    return <output>
+
+## Get all current functions.
+import gc
+vars = locals
+for i in range(len(vars)):
+    print(type(vars[i]))
