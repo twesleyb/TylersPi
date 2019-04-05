@@ -123,6 +123,17 @@ git
 ################################################################################
 ## Setting up the Raspberry Pi.
 ################################################################################
+
+# Hardware:
+* Raspberry Pi 3 B: https://www.amazon.com/gp/product/B07BDR5PDW/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1
+* SanDisk micro SD: https://www.amazon.com/gp/product/B073JWXGNT/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1
+* Arducam camera for the Raspberry Pi: https://www.amazon.com/gp/product/B012V1HEP4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1
+* You will also need a USB keyboard, USB mouse, HDMI monitor, and a micro USB power supply.
+* I connected my Pi with a 5.0V 100mA microA charger. The Pi's documentation says 
+    that the Pi requires 5.1V and >700mA. So, I may have been providing 
+    insufficient power.
+    Pi power supply: https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/README.md
+
 # To set up a Raspberry Pi 3 (Model B), I followed the instructions (here)
 # [https://www.imore.com/how-get-started-using-raspberry-pi].
 
@@ -211,10 +222,6 @@ git clone git@github.com:twesleyb/newTest.git
 $ ls ~/.shh
 $ cat ~/.ssh/id_rsa.pub
 
-# My key:
-# ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0gRz6fukK53fouCP2B5DbHUH4tr74zUQeidMIR6/OJUA9+zG67e4vAqhl/OCtlQ9SjVy7ZSSeL54J3Q0awJfW6bu+ZanTwG8G9DQJOkesZvy1Oe8pZIyd7a3P+sRCzE+gp6E+B+pNKer4CD1g/hIn5nLyl2wXZdQWz9a0m+bIFjMNwsrO1VzeBYyulQxlB3q0v8pm3nOxjhkvs4KHcFF9k+aDZu/Mjn8c2d2lN5Npz0sYBbAdc0VmqJwntQ/k2uzVVT67QyGFbxlfZ80OqvYXbljrlJDX4TzC+oI+pduItUeKzrtkLqLkTOXtCB0MhOtuA0ogYUYfTFf4IFrUJ+Yv pi@raspberrypi
-# pi@raspberrypi
-
 # Basic git commands:
 $ git add --all
 $ git status
@@ -222,6 +229,8 @@ $ git commit -am "commit message"
 $ git push
 $ git pull
 $ 
+
+# Password is my Duke netid.
 
 ################################################################################
 ## Basic Windows terminal commands.
@@ -254,14 +263,40 @@ sudo reboot
 # Turn off
 sudo halt
 
-# Take a test picture.
-raspistill -v -o test.jpg
+# update and upgrade
+sudo apt-get update
+sudo apt-get upgrade
 
 # Check if camera is connected:
 vcgencmd get_camera
 
-# Configuration.
+# Take a test picture.
+raspistill -v -o test.jpg
+
+# Raspberry Pi configuration.
 sudo raspi-config
+
+# To remove a package.
+sudo pip unistall <package>
+
+# To manually remove a package
+sudo rm -rf /usr/local/lib/python2.7/dist-packages/<package>
+
+# Delete a file.
+rm filename
+
+# Hidden files.
+# files with a '.' are hidden. e.g. `.ssh` is hidden from view.
+# to see hidden files:
+ls -a
+
+# To open a file.
+xdg-open <filename>
+
+# go back to parent directory. https://www.tecmint.com/bd-quickly-go-back-to-a-linux-parent-directory/
+# Install in /usr/bin
+sudo wget --no-check-certificate -O /usr/bin/bd https://raw.github.com/vigneshwaranr/bd/master/bd
+# not working...
 
 ################################################################################
 ## Basic Pyton
@@ -324,3 +359,50 @@ import gc
 vars = locals
 for i in range(len(vars)):
     print(type(vars[i]))
+
+################################################################################
+## Using Atom as an IDE.
+################################################################################
+Some instructions: https://pythonhow.com/using-atom-as-a-python-editor/
+
+################################################################################
+## Creating an R package.
+################################################################################
+# roxygen format: https://kbroman.org/pkg_primer/pages/docs.html
+# simple tutorial: https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+# More on the roxygen format: http://r-pkgs.had.co.nz/man.html
+
+library(devtools)
+library(roxygen2)
+
+devtools::create("package")
+
+# Write r function with roxygen format. 
+# Example: https://github.com/kbroman/pkg_primer/blob/gh-pages/example/stage3/R/plot_crayons.R
+
+# Insure you are in the new packages directory.
+devtools::document()
+
+# Install the package.
+install("cats")
+
+# The package will now be in your library directory.
+# To check where your pacakges are stored:
+# Check where your packages are installed.
+.libPaths()
+
+# You can source the package like normal.
+library("package")
+
+# Once the package is on github, you can install it with devtools::install_github()
+install_github("kbroman/broman") #username/package
+
+################################################################################
+## Running linux directly on Windows.
+################################################################################
+# Enable linux subsystem on windows.
+# Cannot do this through the command line on W10. 
+# Follow these instructions: https://www.laptopmag.com/articles/use-bash-shell-windows-10
+# You will need to download a linux system now, open the windows store and get ubuntu.
+# Search for ubuntu in the search bar. Ubuntu should automatically install in the
+#   open command window. 

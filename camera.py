@@ -53,8 +53,8 @@ $ omxplayer video.h264
 # This is due to omxplayer’s fast frame rate.
 
 # Changing the resolution.
-# Max still res = 2592 x 1944; FR should be 15. 
-# Max video res = 1920 x 1080 
+# Max still res = 2592 x 1944; FR should be 15.
+# Max video res = 1920 x 1080
 camera.resolution = (2592, 1944)
 camera.framerate = 15
 camera.start_preview()
@@ -84,7 +84,7 @@ camera.stop_preview()
 
 # Adding color to text annotation.
 from picamera import PiCamera, Color
-camera.framerate = 
+camera.framerate =
 camera.start_preview()
 camera.annotate_background = Color('blue')
 camera.annotate_foreground = Color('yellow')
@@ -93,11 +93,11 @@ sleep(5)
 camera.stop_preview()
 
 # Other settings.
-camera.METER_MODES 
+camera.METER_MODES
 camera.EXPOSURE_MODES
-camera.FLASH_MODES   
-camera.AWB_MODES   
-camera.IMAGE_EFFECTS 
+camera.FLASH_MODES
+camera.AWB_MODES
+camera.IMAGE_EFFECTS
 camera.DRC_STRENGTHS
-camera.STEREO_MODES  
-camera.CLOCK_MODES 
+camera.STEREO_MODES
+camera.CLOCK_MODES
