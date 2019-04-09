@@ -34,54 +34,10 @@ pip list
 ## Installing the Anaconda/Miniconda/Spyder IDE on Windows 10.
 ################################################################################
 
-# Download [Anaconda](https://www.anaconda.com/distribution/#download-section)
-# Insure you download the Windows version (.exe file)!
-
-# You can install Anaconda if you already have Python. 
-
-###I already have Python installed. Can I install Anaconda?
-#> You do not need to uninstall other Python installations or packages before 
-#> installing Anaconda. Even if you already have a system Python, another Python 
-#> installation from a source such as the macOS Homebrew package manager and 
-#> globally installed packages from pip such as pandas and NumPy, you do not 
-#> need to uninstall, remove, or change any of them.
-
-# First download, changed path to C:\Anaconda3 and then had troubles. 
-# Anaconda prompt is found but not anaconda-navigator. 
-# Uninstall and try again. Use default location. This did not work.
-# Uninstall and try again. Changed location to C:\Anaconda3.
-# Select option to add python to PATH.  
-
-# Ugh, can't get it working. 
-
-# Unistall everything.
-# Install miniconda.
-# Launch Anaconda prompt:
-conda install -c anaconda anaconda-navigator
-# Now we have anaconda navigator. System path is still not correct as I cannot access conda or anaconda-navigator from command prompt. 
-# Install spyder3 from navigator. 
-# Upgrade spyder. In the command terminal:
-python pip install --upgrade spyder
-# Still wont work. 
-
-# unistalled anaconda-navigator, spyder
-
-# Insure that the following are installed:
-
-# Not sure whether or not I should have installed with conda or pip.
-pip install pyqt5
-pip install PySide2
-
-# in anaconda prompt:
-conda update qt pyqt
-conda update spyder
-
- #now it works! But the only way I can get spyder running is through 
-# Anaconda prompt:
-spyder 
-# or
-spyder3
-# you cannot pin this to start or make a shortcut. clicking on the exe doesnt work. 
+## Manually install all spyder dependencies with pip.
+# pip install spyder_requirements.txt 
+# Install spyder with pip
+# launch from cmd with spyder3
 
 ################################################################################
 ## Installying Jupyter notebook.
@@ -198,6 +154,9 @@ camera.stop_preview()
 # Once connected to the Raspberry pi with VNC you can operate the Raspberry pi
 # with or without (headless) a monitor.
 
+# initialize VNC server on Pi:
+vncserver
+
 ################################################################################
 ## Setting up Git for Raspberry Pi.
 ################################################################################
@@ -250,8 +209,46 @@ md
 # To create a blank file.
 echo >> newfile.txt
 
+# Remove a directory.
+rmdir <dirname>
+# If the directory is not empty, use:
+rmdir /s <dirname>
+
+# Delete a file
+del <filename.ext>
+
 # You can chain commands together with the & operator.
 # e.g. d: & echo >> test.txt
+
+# List available packages.
+pip list
+
+# Save packages to requirements.txt.
+pip freeze --local >requirements.txt
+
+
+################################################################################
+## Making a virtual environment. 
+################################################################################
+
+# This is a way of seperating different python environments for different projects.
+# This environment is isolated. That way an upgrade to a global package will not 
+# affect this virtual environemnt. 
+ 
+# Install virtualenv
+pip install virtualenv
+
+# Create with:
+virtualenv <my_virtual_env>
+
+# Activate by navigating to Scripts folder and running activate. 
+\path\to\env\Scripts\activate
+
+# deactivate with deactivate from any directory
+deactivate
+
+# Remove by just deleting the directory.
+rmdir /s <my_env>
 
 ################################################################################
 ## Basic Raspberry Pi (Linux) terminal commands. 
@@ -293,10 +290,18 @@ ls -a
 # To open a file.
 xdg-open <filename>
 
-# go back to parent directory. https://www.tecmint.com/bd-quickly-go-back-to-a-linux-parent-directory/
-# Install in /usr/bin
-sudo wget --no-check-certificate -O /usr/bin/bd https://raw.github.com/vigneshwaranr/bd/master/bd
-# not working...
+# Wifi
+# Set up the wifi under sudo raspi-config > Network Options > N2 Wi - fi
+# Download the Duke Blue network application here: https://dukeblue.duke.edu/
+$ cd Downloads
+# Make the .run file executable. 
+$ chmod +x SecureW2_JoinNow.run
+$ ./SecureW2_JoinNow.run
+# Enter credentials. Use netid (065..)
+
+# Mac address.
+ls /sys/class/net/
+
 
 ################################################################################
 ## Basic Pyton
@@ -365,6 +370,12 @@ for i in range(len(vars)):
 ################################################################################
 Some instructions: https://pythonhow.com/using-atom-as-a-python-editor/
 
+# Use safe mode to debug issues.
+# Enter safe mode from the terminal.
+$ atom --safe
+# You can then add packages and try to reproduce the problem.
+# Exit safe mode:
+$ atom --clear-window-state
 ################################################################################
 ## Creating an R package.
 ################################################################################
