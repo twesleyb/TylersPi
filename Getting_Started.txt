@@ -228,8 +228,11 @@ pip freeze --local >requirements.txt
 
 
 ################################################################################
-## Making a virtual environment. 
+## Making a virtual environment (Python). 
 ################################################################################
+
+# For virtual environment-like setup with R, see the Packrat package:
+# http://rstudio.github.io/packrat/walkthrough.html
 
 # This is a way of seperating different python environments for different projects.
 # This environment is isolated. That way an upgrade to a global package will not 
@@ -249,6 +252,31 @@ deactivate
 
 # Remove by just deleting the directory.
 rmdir /s <my_env>
+
+# Some instructions for setting up virtual env through WLS: http://timmyreilly.azurewebsites.net/python-with-ubuntu-on-windows/
+# Add jasper lib: https://stackoverflow.com/questions/43484357/opencv-in-ubuntu-17-04
+
+################################################################################
+## Windows gdrive.
+################################################################################
+
+# Download appropriate gdrive version.
+# Move to a directory where you want gdrive. 
+# I used c:/Windows/gdrive 
+# navigate to this directory and enter the following command:
+$ gdrive-windows-x64.exe list.
+# Go to the provided url and get the passkey.
+
+# Be in the gdrive directory.
+C:\Windows\gdrive
+
+# Upload a file with:
+gdrive-windows-x64.exe upload c:\Users\tyler\Downloads\youtube.bat
+
+# Simplify the gdrive-windows-x64.exe executable filename to gdrive.exe.
+# Add gdrive to windows path. 
+
+# you can now upload from any directory!
 
 ################################################################################
 ## Basic Raspberry Pi (Linux) terminal commands. 
@@ -376,6 +404,19 @@ $ atom --safe
 # You can then add packages and try to reproduce the problem.
 # Exit safe mode:
 $ atom --clear-window-state
+
+# Open a file with atom from the terminal, simply:
+$ atom filename.ext
+
+################################################################################
+## Add VLC to Windows command terminal.
+################################################################################
+
+# Need to add vlc.exe to the Window's path. 
+# My  path was: C:\Program Files (x86)\VideoLAN\VLC\
+# You can now open media files with the command:
+$ vlc filename.ext
+
 ################################################################################
 ## Creating an R package.
 ################################################################################
@@ -409,7 +450,7 @@ library("package")
 install_github("kbroman/broman") #username/package
 
 ################################################################################
-## Running linux directly on Windows.
+## Running linux directly on Windows (Windows Linux Subsystem, WLS).
 ################################################################################
 # Enable linux subsystem on windows.
 # Cannot do this through the command line on W10. 
@@ -417,3 +458,25 @@ install_github("kbroman/broman") #username/package
 # You will need to download a linux system now, open the windows store and get ubuntu.
 # Search for ubuntu in the search bar. Ubuntu should automatically install in the
 #   open command window. 
+
+################################################################################
+## Installing Rtools.
+################################################################################
+# Download the Rtools .ex.
+# Important: insure the version you download is compatible with your current
+# version of R. To check your R version, in R/Rstudio type:
+R.version
+
+# Follow the installation steps, accepting defaults. 
+# Check that Rtools is installed: https://thecoatlessprofessor.com/programming/installing-rtools-for-compiled-code-via-rcpp/
+> library(Rcpp)
+> Rcpp::evalCpp("2+2")
+
+################################################################################
+## File encyrption (linux)
+################################################################################
+https://www.techrepublic.com/article/how-to-easily-encryptdecrypt-a-file-in-linux-with-gpg/
+gpg -c important.docx
+# Enter password. 
+gpg important.dox.gpg
+# Enter password.
