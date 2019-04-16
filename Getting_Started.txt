@@ -310,6 +310,8 @@ sudo nano /home/pi/.bashrc
 export PATH=$PATH:/home/pi/Documents/gdrive
 # Save. gdrive is now in the system path. 
 
+# The .gdrive configuration file is located at: C:\Users\tyler\AppData\Roaming\.gdrive
+
 ################################################################################
 ## Basic Raspberry Pi (Linux) terminal commands. 
 ################################################################################
