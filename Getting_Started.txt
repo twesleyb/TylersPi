@@ -256,6 +256,10 @@ rmdir /s <my_env>
 # Some instructions for setting up virtual env through WLS: http://timmyreilly.azurewebsites.net/python-with-ubuntu-on-windows/
 # Add jasper lib: https://stackoverflow.com/questions/43484357/opencv-in-ubuntu-17-04
 
+# On the Raspberry pi.
+# create virtual env.
+# Navigate to its directory.
+# Activate with source bin/activate
 ################################################################################
 ## Using gdrive to upload files. 
 ################################################################################
@@ -278,6 +282,33 @@ gdrive-windows-x64.exe upload c:\Users\tyler\Downloads\youtube.bat
 # Add gdrive to windows path. 
 
 # you can now upload from any directory!
+
+# Basic commands:
+gdrive list
+gdrive list > list.txt
+gdrive upload filename.ext
+gdrive download 1UNaClNYA6O3nRIas8wR0um3A4drjVoEr
+gdrive delete 1UNaClNYA6O3nRIas8wR0um3A4drjVoEr
+
+## gdrive on the Raspberry Pi. 
+# Download gdrive for Raspberry Pi.
+# Put file in desired location.
+# Make it executable:
+sudo chmod +x gdrive-linux-rpi
+# Execute a command.
+./ gdrive-linux-rpi list
+# Open the link, log into your google account, paste the password into the terminal.
+
+# You can change the name of the executable file to something simpler, gdrive.
+# Add gdrive to your path: https://opensource.com/article/17/6/set-path-linux 
+# e.g.:
+$ export PATH=$PATH:/home/pi/Documents/gdrive
+
+# In order for this setting to be saved, you need to modify the .bashrc file.
+sudo nano /home/pi/.bashrc
+# Append the following to the bottom. You can use # to comment.
+export PATH=$PATH:/home/pi/Documents/gdrive
+# Save. gdrive is now in the system path. 
 
 ################################################################################
 ## Basic Raspberry Pi (Linux) terminal commands. 
@@ -481,3 +512,50 @@ gpg -c important.docx
 # Enter password. 
 gpg important.dox.gpg
 # Enter password.
+
+# Specify the password in the command terminal.
+#gpg -c --batch --passphrase 1234 -o 5sec.h264.gpg  5sec.h264
+
+################################################################################
+## Connecting the Raspberry Pi to an external hard drive.
+################################################################################
+# Instructions: https://www.makeuseof.com/tag/connect-hdd-raspberry-pi/
+# Pi Documentation for automatic mounting: https://www.raspberrypi.org/documentation/configuration/external-storage.md
+
+# My Seagate HDD is NTFS format. 
+# The drive must either be reformatted for mounting onto the Pi OR
+# ntfs-3g software must be installed so that the pi can read the drive.
+
+sudo apt install ntfs-3g
+sudo blkid > note.txt
+xdg-open note.txt # UUID is 16 alphanumerical string.
+
+# I used sda2 not sda1
+#sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda1 /mnt/mydisk
+sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda2 /mnt/mydisk
+
+# Note that in the following line:
+UUID=ABCDEFGH12345678 /mnt/volume ntfs-3g uid=1000,gid=1000,nofail,umask=007 0 0
+# volume is the name of the HDD! Change this to the directory you created in the previous steps.
+# Otherwise your drive will just be named volume and you will have to unmout and start over
+# if you want to change the name. 
+
+################################################################################
+## Google Drive-Cli
+################################################################################
+
+# Install with pip
+pip install drive-cli
+
+# Connect to google drive. 
+
+################################################################################
+## Creating space on the Raspberry pi.
+################################################################################
+# Instructions: https://www.raspberrypi-spy.co.uk/2018/03/free-space-raspberry-pi-sd-card/
+
+# Check available space.
+df -h
+
+# Remove a package.
+sudo apt-get purge -y package_name
