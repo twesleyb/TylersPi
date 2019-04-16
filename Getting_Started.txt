@@ -570,3 +570,12 @@ df -h
 
 # Remove a package.
 sudo apt-get purge -y package_name
+
+################################################################################
+## Camera set up for recording.
+################################################################################
+
+# Bottom of clamp (holding horizontal wooden rod): 18 inches from the bottom of the stand.
+# Black clamp holding the pi: 15 inches to the right from where the metal stand meets the wooden rod
+# Set up the cage to sit on the ring stand base (centered)
+
