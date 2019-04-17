@@ -579,3 +579,14 @@ sudo apt-get purge -y package_name
 # Black clamp holding the pi: 15 inches to the right from where the metal stand meets the wooden rod
 # Set up the cage to sit on the ring stand base (centered)
 
+################################################################################
+## Streaming video from the Raspberry Pi with VLC.
+################################################################################
+# Youtube: https://www.youtube.com/watch?v=JjPsW-7FUng
+# Initiate camera stream:
+raspivid -o - -t 0 -hf -w 800 -h 400 -fps 24 |cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8160}' :demux=h264
+
+# Initiate stream on VLC from computer.
+# Media > Open Network Stream > Enter URL: http://10.122.187.207:8160
+
+
