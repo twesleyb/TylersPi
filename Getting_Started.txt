@@ -589,4 +589,67 @@ raspivid -o - -t 0 -hf -w 800 -h 400 -fps 24 |cvlc -vvv stream:///dev/stdin --so
 # Initiate stream on VLC from computer.
 # Media > Open Network Stream > Enter URL: http://10.122.187.207:8160
 
+# I created an executable script, vlc-stream and put this in home/pi/bin.
+# I added this folder to my pi's path (.bashrc file).
+# This is now executable from the termnial.
 
+################################################################################
+## Connecting to the Raspberry pi through PC's ethernet.
+################################################################################
+# youtube: https://youtu.be/AJ7skYS5bjI
+# Enable ethernet sharing. 
+> Control Panel\Network and Internet\Network and Sharing Center\Wi-Fi 
+> Properties > Sharing > Enable allow other network users to connect through 
+  this computer's internet connection
+
+# Download Advanced IP Scanner: https://www.advanced-ip-scanner.com/
+# Connect to Pi by wifi.
+# Search for the Pi in the IP range given under the computers:
+#  Ethernet > properties > Internet Protocol Version 4 (double click)
+192.168.137.1 - 192.168.137.254
+
+# Connect to the Pi with VNC using the IP address found by Advanced IP scanner.
+
+# Note: at this point, the Pi is connected to the computer, but the Pi has no 
+# internet access.
+
+################################################################################
+## Machine learning
+################################################################################
+# Coursera course on TensorFlow: https://www.coursera.org/learn/introduction-tensorflow
+# Tutorial for video analysis:https://towardsdatascience.com/real-time-and-video-processing-object-detection-using-tensorflow-opencv-and-docker-2be1694726e5 
+# More about convolutions: https://bit.ly/2UGa7uH
+
+################################################################################
+## Using the Vim editor.
+################################################################################
+# https://www.youtube.com/watch?v=ggSyF1SVFr4
+# edit a file.
+vim <filename.ext>
+
+# The linux home directory 
+cd $HOME/
+
+# Your Vim configuration is stored in the .vimrc file.
+# Find your vim file location with:
+vim
+:version
+:echo $MYVIMRC
+
+# The default mode is command mode. 
+# Editor mode (insert) i
+# Esc to exit
+
+# Helpful commands. preceeded by 
+u     # Undo
+r     # redo
+dd    # delete line
+3dd   # delete 3 lines
+:w    # Save
+
+################################################################################
+## SSH to connect to Pi using WLS.
+################################################################################
+
+# Simple as, in the WLS Ubuntu Bash:
+$ ssh pi@
