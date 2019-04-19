@@ -269,6 +269,7 @@ rmdir /s <my_env>
 # create virtual env.
 # Navigate to its directory.
 # Activate with source bin/activate
+
 ################################################################################
 ## Using gdrive to upload files. 
 ################################################################################
@@ -652,4 +653,28 @@ dd    # delete line
 ################################################################################
 
 # Simple as, in the WLS Ubuntu Bash:
-$ ssh pi@
+$ ssh pi@10.122.187.207
+
+################################################################################
+## Symlink your bash profile.
+################################################################################
+
+# Instructions: https://medium.freecodecamp.org/dive-into-dotfiles-part-2-6321b4a73608
+# The gist:
+$ mv ~/.bash_profile ~/Projects/dotfiles/.bash_profile
+$ ln -sv ~/Projects/dotfiles/.bash_profile ~
+
+################################################################################
+## Installing opencv (cv2) on Raspberry Pi.
+################################################################################
+# In Python 3 virtual environment:
+pip install opencv-python
+
+# Other dependencies:
+sudo apt-get install libcblas-dev
+sudo apt-get install libhdf5-dev
+sudo apt-get install libhdf5-serial-dev
+sudo apt-get install libatlas-base-dev
+sudo apt-get install libjasper-dev 
+sudo apt-get install libqtgui4 
+sudo apt-get install libqt4-test
