@@ -112,5 +112,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# This is a test.
+# Export
+export PATH=$PATH:/home/pi/Projects/TylersPi/scripts
 
+# Alias
+alias home-cage-behavior="cd /home/pi/Projects/Home-Cage-Behavior/ && source /home/pi/Projects/Home-Cage-Behavior/git-ignore/python3/bin/activate"
