@@ -1,0 +1,35 @@
+#!/usr/bin/python
+
+# USAGE EXAMPLE:
+# python raspistream.py 10 
+
+# HELP:
+# python raspistream.py --help
+
+import os
+import argparse
+#import webbrowser
+import time
+import subprocess
+
+# Parse the system arguments with argparse.
+ap = argparse.ArgumentParser(description="Initialize a Raspi camera stream.")
+ap.add_argument("duration", type = int,
+                    help = "the length of the recording, in seconds.")
+#ap.add_argument("-w", "--web", type = int, default = 0,
+#                    help = "open the web browser")
+args = vars(ap.parse_args())
+
+# Execute system call.
+duration = args["duration"]
+os.system("echo 'ca 1 {}' > /var/www/html/FIFO".format(duration))
+
+# Open the web browser if specified.
+#web = bool(args["web"])
+#if web:
+#    webbrowser.open('http:/10.122.187.207:80/html', new=2)
+
+# Wait duration +3 seconds and then stop the camera.
+time.sleep(duration+3)
+subprocess.call("~/Projects/Pi_Cam_Web_Interface/stop.sh, shell = True)
+

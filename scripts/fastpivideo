@@ -5,7 +5,9 @@
 # https://www.pyimagesearch.com/2016/02/22/writing-to-video-with-opencv/
 
 # USAGE EXAMPLE:
-# python fastpivideo.py --duration 10 --output example.avi
+# python fastpivideo.py 10 --output example.avi
+# python fastpivideo.py 10 --preview 1
+# python fastpivideo.py 30 --output ~/Home-Cage-Behavior/videos/testvideo.avi
 
 # HELP:
 # python fastpivideo.py --help
@@ -29,18 +31,24 @@ output = os.getcwd() + "/" + "pivideo" + ".avi" #.avi
 # Parse the system arguments with argparse.
 ap = argparse.ArgumentParser(description="""Record a threaded video for encreased
     framerate processing of the Raspberry Pi camera. Specify a desired duration
-    (--duration) or use 'q' to stop the recording. The video will be saved in the
+    (--duration) or use 'q' to stop the recording if connected via VNC.
+    If you are connected to the pi via ssh specify --preview 0 (no preview) to
+    avoid the error (: cannot connect to X server) resulting from the pi trying
+    to connect to a GUI environment. The video will be saved in the
     current working directory unless specified otherwise (--output).""")
-ap.add_argument("-d","--duration", type = int, default=np.inf,
-    help="video duration; default = Inf")
+ap.add_argument("duration", type = int, help="video duration")
 ap.add_argument("-o", "--output", default=output,
     help="path to output video file; default = os.cwd")
-ap.add_argument("-p", "--picamera", type=int, default=1,
+ap.add_argument("-pi", "--picamera", type=int, default=1,
     help="whether or not the Raspberry Pi camera should be used; default = True")
 ap.add_argument("-f", "--fps", type=int, default=30,
-    help="FPS of output video; default = 30")
+    help="FPS of output video; default = 45 fps")
 ap.add_argument("-c", "--codec", type=str, default="h264",
     help="codec of output video; default = h264")
+ap.add_argument("-p", "--preview", type=int, default=0,
+                help="preview output")
+ap.add_argument("-a", "--annotate", type=int, default=1,
+                help="annotate video with timestamp")
 args = vars(ap.parse_args())
 
 # Initialize the video stream and allow the camera
@@ -66,10 +74,23 @@ start = dt.datetime.now()
 duration = args["duration"]
 while (dt.datetime.now() - start).seconds < duration:
     # grab the frame from the video stream and resize it to have a
-    # maximum width of 300 pixels
+    # maximum width of N pixels
     frame = vs.read()
     frame = imutils.resize(frame, width=600)
-
+       
+    # Annotate frame.
+    font                   = cv2.FONT_HERSHEY_SIMPLEX
+    pos                    = (80,300)
+    fontScale              = 0.5
+    fontColor              = (255,255,255)
+    lineType               = 2
+    annotate = bool(args["annotate"])
+    if annotate:
+        text = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        text = ""
+    frame = cv2.putText(frame, text, pos, font, fontScale, fontColor,lineType)
+        
     # check if the writer is None
     if writer is None:
         # store the image dimensions, initialzie the video writer,
@@ -98,15 +119,17 @@ while (dt.datetime.now() - start).seconds < duration:
 
     # write the output frame to file
     writer.write(output)
-
-    # show the frames
-    #cv2.imshow("Frame", frame)
-    cv2.imshow("Output", output)
-    key = cv2.waitKey(1) & 0xFF
-
-    # if the `q` key was pressed, break from the loop
-    if key == ord("q"):
-        break
+    
+    # Preview output.
+    preview = bool(args["preview"])
+    if preview:
+        #show the frames. Only works over VNC.
+        cv2.imshow("Frame", frame)
+        #cv2.imshow("Output", output)
+        key = cv2.waitKey(1) & 0xFF
+        # if the `q` key was pressed, break from the loop
+        if key == ord("q"):
+            break
 
 # do a bit of cleanup
 print("[INFO] cleaning up...")
