@@ -462,6 +462,29 @@ $ atom filename.ext
 $ vlc filename.ext
 
 ################################################################################
+## Modifying playback speed with VLC.
+################################################################################
+
+# They FPS speed can be changed for playback in VLC.
+Click the "Media" menu in VLC. Choose "Convert/Save" to display the "Open Media" 
+    dialog box.
+Click "Add" to display a file dialog box. Navigate to the file with the frame 
+    rate that you want to change. Double-click to load it into the "File Selection" list.
+Click the "Convert/Save" drop-down menu and choose "Convert."
+Click "Edit," which has an icon that looks like a wrench and screwdriver. 
+    The "Form" dialog box appears.
+Click the "Video Codec" tab. Put a check mark by "Keep Original Video Track," 
+    if you want to keep the original sound. Choose "1" from the "Scale" drop-down 
+    menu to keep the original frame size.
+Enter a new frame rate in the "Frame Rate" box. A typical rate is 30 frames per 
+    second. Enter a bitrate such as 100 kilobytes per second. Click "Save" to 
+    return to the "Convert" dialog.
+Click "Browse" to specify a location and a file name for the converted file. 
+    Choose the file type for the converted file in the "Profile" drop-down menu. 
+    Click "Start" to convert the file.
+
+
+################################################################################
 ## Creating an R package.
 ################################################################################
 # roxygen format: https://kbroman.org/pkg_primer/pages/docs.html
@@ -538,9 +561,12 @@ gpg important.dox.gpg
 # The drive must either be reformatted for mounting onto the Pi OR
 # ntfs-3g software must be installed so that the pi can read the drive.
 
-sudo apt install ntfs-3g
+sudo apt-get install ntfs-3g
 sudo blkid > note.txt
 xdg-open note.txt # UUID is 16 alphanumerical string.
+
+sudo mkdir /mnt/mydisk
+sudo chmod 770 /mnt/mydisk
 
 # I used sda2 not sda1
 #sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda1 /mnt/mydisk
@@ -647,6 +673,9 @@ r     # redo
 dd    # delete line
 3dd   # delete 3 lines
 :w    # Save
+
+# Basic .vimrc file.
+https://gist.github.com/simonista/8703722
 
 ################################################################################
 ## SSH to connect to Pi using WLS.
