@@ -462,7 +462,7 @@ $ atom filename.ext
 $ vlc filename.ext
 
 ################################################################################
-## Modifying playback speed with VLC.
+## Modifying playback speed with VLC (VLC playback).
 ################################################################################
 
 # They FPS speed can be changed for playback in VLC.
@@ -569,14 +569,16 @@ sudo mkdir /mnt/mydisk
 sudo chmod 770 /mnt/mydisk
 
 # I used sda2 not sda1
-#sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda1 /mnt/mydisk
-sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda2 /mnt/mydisk
+#sudo mount -t ntfs-3g -o uid=1000,gid=1000,umask=007 /dev/sda2 /mnt/mydisk
 
 # Note that in the following line:
-UUID=ABCDEFGH12345678 /mnt/volume ntfs-3g uid=1000,gid=1000,nofail,umask=007 0 0
+UUID=44C661D2C661C530 /mnt/volume ntfs-3g uid=1000,gid=1000,nofail,umask=007 0 0
 # volume is the name of the HDD! Change this to the directory you created in the previous steps.
 # Otherwise your drive will just be named volume and you will have to unmout and start over
 # if you want to change the name. 
+
+# fstab:
+
 
 ################################################################################
 ## Google Drive-Cli
@@ -707,3 +709,49 @@ sudo apt-get install libatlas-base-dev
 sudo apt-get install libjasper-dev 
 sudo apt-get install libqtgui4 
 sudo apt-get install libqt4-test
+
+################################################################################
+## Raspi stream.
+################################################################################
+
+You can do many things (including start/stop recording) from the command line by writing to the FIFO queue. For example to start recording: (Note that your directory name may be different depending upon your installation)
+Code: Select all
+
+echo 'ca 1' > /var/www/FIFO
+And to stop:
+Code: Select all
+
+echo 'ca 0' > /var/www/FIFO
+While this command will capture 25 seconds of video and then stop:
+Code: Select all
+
+echo 'ca 1 25' > /var/www/FIFO
+You can see a list of available commands by clicking on the 'Edit schedule settings' 
+button, and then 'Command reference'.
+
+################################################################################
+## Linux: view file uid permissions, ownership:
+################################################################################
+
+# Use the command:
+ls -l
+ls -n
+
+# Example output.
+drwxr-xr-x 2 www-data www-data  4096 Apr 24 17:20 media
+drwxr-xr-x 2 33 33  4096 Apr 25 11:35 media
+
+# These fields are:
+* file permissions,
+* number of links,
+* owner name,
+* owner group,
+* file size,
+* time of last modification, and
+* file/directory name
+
+################################################################################
+## SSH onto WLS.
+################################################################################
+
+# Instructions: https://www.illuminiastudios.com/dev-diaries/ssh-on-windows-subsystem-for-linux/
