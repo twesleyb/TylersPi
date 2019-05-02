@@ -187,7 +187,7 @@ git clone git@github.com:twesleyb/newTest.git
 
 ```
 # Commands to check SSH key.
-$ ls ~/.shh
+$ ls ~/.ssh
 $ cat ~/.ssh/id_rsa.pub
 
 # Basic git commands:
@@ -755,3 +755,38 @@ drwxr-xr-x 2 33 33  4096 Apr 25 11:35 media
 ################################################################################
 
 # Instructions: https://www.illuminiastudios.com/dev-diaries/ssh-on-windows-subsystem-for-linux/
+sudo apt remove openssh-server
+sudo apt install openssh-server
+# Edit config.
+sudo vim /etc/ssh/sshd_config
+# PasswordAuthentication = yes
+# Add:
+AllowUsers yourusername
+# Check ssh status
+service ssh status
+sudo service ssh start
+sudo service ssh --full-restart
+sudo visudo
+# Add
+#%sudo ALL=NOPASSWD: /usr/sbin/sshd after %sudo  ALL=(ALL:ALL) ALL
+
+# Set up a task scheduler to automatically start ssh server.
+
+################################################################################
+## Undo a big Git commit.
+################################################################################
+
+# From: https://stackoverflow.com/questions/20002557/how-to-remove-a-too-large-file-in-a-commit-when-my-branch-is-ahead-of-master-by
+
+# If you have committed a file that is too large to push to git, you can undo 
+# the commit with:
+
+git reset HEAD^
+
+# or 
+git reset HEAD~n 
+
+# Where n is the number of commits to undo.
+
+# You can then remove the culprit file with:
+git remove -- filename
