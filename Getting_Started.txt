@@ -772,7 +772,6 @@ sudo visudo
 
 # Set up a task scheduler to automatically start ssh server.
 
-<<<<<<< HEAD
 ################################################################################
 ## Undo a big Git commit.
 ################################################################################
@@ -791,6 +790,3 @@ git reset HEAD~n
 
 # You can then remove the culprit file with:
 git remove -- filename
-=======
-##########
->>>>>>> d81182c1bdb091258ae745e1aed661691b64afae
